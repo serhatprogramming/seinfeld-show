@@ -2,51 +2,43 @@ const ShowTitle = (props) => {
   return <h1>{props.season}</h1>;
 };
 
-const Episodes = (props) => {
-  return (
-    <>
-      <p>
-        {props.episode1} {props.viewsEp1}
-      </p>
-      <p>
-        {props.episode2} {props.viewsEp2}
-      </p>
-      <p>
-        {props.episode3} {props.viewsEp3}
-      </p>
-    </>
-  );
-};
+const Episodes = (props) => (
+  <>
+    <Episode episode={props.episode1} />
+    <Episode episode={props.episode2} />
+    <Episode episode={props.episode3} />
+  </>
+);
+
+const Episode = (props) => (
+  <p>
+    {props.episode.name} {props.episode.views.toLocaleString("en-US")}
+  </p>
+);
 
 const TotalSeasonViews = (props) => {
   return (
     <>
-      <p>Season 1, Number of Views {props.totalViews}</p>
+      <p>
+        Season 1, Number of Views {props.totalViews.toLocaleString("en-US")}
+      </p>
     </>
   );
 };
 
 const App = () => {
   const season = "Seinfeld Season 1";
-  const episode1 = "Good News, Bad News";
-  const viewsEp1 = 6905040;
-  const episode2 = "The Stakeout";
-  const viewsEp2 = 3905040;
-  const episode3 = "The Robbery";
-  const viewsEp3 = 4498237;
+  const episode1 = { name: "Good News, Bad News", views: 6905040 };
+  const episode2 = { name: "The Stakeout", views: 3905040 };
+  const episode3 = { name: "The Robbery", views: 4498237 };
 
   return (
     <div>
       <ShowTitle season={season} />
-      <Episodes
-        episode1={episode1}
-        episode2={episode2}
-        episode3={episode3}
-        viewsEp1={viewsEp1}
-        viewsEp2={viewsEp2}
-        viewsEp3={viewsEp3}
+      <Episodes episode1={episode1} episode2={episode2} episode3={episode3} />
+      <TotalSeasonViews
+        totalViews={episode1.views + episode2.views + episode3.views}
       />
-      <TotalSeasonViews totalViews={viewsEp1 + viewsEp2 + viewsEp3} />
     </div>
   );
 };
